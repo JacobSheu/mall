@@ -1,6 +1,6 @@
 package com.example.mall.web;
 
-import com.example.mall.Util.ImageUtil;
+import com.example.mall.util.ImageUtil;
 import com.example.mall.dao.CategoryMapper;
 import com.example.mall.pojo.Category;
 import com.github.pagehelper.PageHelper;

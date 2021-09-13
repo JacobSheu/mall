@@ -1,4 +1,4 @@
-package com.example.mall.Util;
+package com.example.mall.util;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
