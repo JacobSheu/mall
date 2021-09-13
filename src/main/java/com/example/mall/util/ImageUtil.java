@@ -1,4 +1,4 @@
-package com.example.mall.Util;
+package com.example.mall.util;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
@@ -24,7 +24,6 @@ public class ImageUtil {
             WritableRaster raster = Raster.createPackedRaster(buffer, width, height, width, RGB_MASKS, null);
             return new BufferedImage(RGB_OPAQUE, raster, false, null);
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return null;
         }

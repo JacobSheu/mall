@@ -1,6 +1,6 @@
 package com.example.mall.web;
 
-import com.example.mall.Util.ImageUtil;
+import com.example.mall.util.ImageUtil;
 import com.example.mall.dao.CategoryMapper;
 import com.example.mall.pojo.Category;
 import com.github.pagehelper.PageHelper;
@@ -20,19 +20,19 @@ public class CategoryController {
     @Autowired CategoryMapper categoryMapper;
 
     @GetMapping("/categories")
-    public List<Category> list(){
+    public List<Category> get(){
         PageHelper.offsetPage(0, 5);
         return categoryMapper.getAllCategory();
     }
     @PostMapping("/categories")
-    public Object post(Category category, MultipartFile image, HttpServletRequest request) throws Exception{
-        saveOrUpdateImageFile(category, image, request);
-        return categoryMapper.post(category);
+    public Object post( Category categoryOnHtml, MultipartFile image, HttpServletRequest request) throws Exception{
+        saveOrUpdateImageFile(categoryOnHtml, image, request);
+        return categoryMapper.post(categoryOnHtml);
     }
-    public void saveOrUpdateImageFile(Category category, MultipartFile image, HttpServletRequest request)
+    public void saveOrUpdateImageFile(Category categoryOnHtml, MultipartFile image, HttpServletRequest request)
             throws IOException {
         File imageFolder= new File(request.getServletContext().getRealPath("img/category"));
-        File file = new File(imageFolder,category.getId()+".jpg");
+        File file = new File(imageFolder,categoryOnHtml.getId()+".jpg");
         if(!file.getParentFile().exists())
             file.getParentFile().mkdirs();
         image.transferTo(file);
@@ -40,7 +40,7 @@ public class CategoryController {
         ImageIO.write(img, "jpg", file);
     }
     @DeleteMapping("categories/{id}")
-    public void delete(@PathVariable int id, HttpServletRequest request) throws Exception{
+    public void delete(@PathVariable int id, HttpServletRequest request){
         categoryMapper.deleteById(id);
         File imageFolder=new File(request.getServletContext().getRealPath("img/category"));
         File file=new File(imageFolder,id+".jpg");
@@ -53,11 +53,11 @@ public class CategoryController {
     }
 
     @PutMapping("categories/{id}")
-    public Category put(Category category, MultipartFile image, HttpServletRequest request) throws Exception{
+    public Category put(Category categoryOnHtml, MultipartFile image, HttpServletRequest request) throws Exception{
         String name=request.getParameter("name");
-        category.setName(name);
+        categoryOnHtml.setName(name);
         if (null!=image)
-            saveOrUpdateImageFile(category, image, request);
-        return categoryMapper.put(category);
+            saveOrUpdateImageFile(categoryOnHtml, image, request);
+        return categoryMapper.put(categoryOnHtml);
     }
 }
